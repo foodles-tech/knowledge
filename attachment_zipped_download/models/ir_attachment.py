@@ -28,12 +28,10 @@ class IrAttachment(models.Model):
         zip_buffer = BytesIO()
         with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zip_file:
             for attachment in self:
-                # Use attachment read for two purpose (initial implementation wasn't):
-                # * to ensure access write
-                # * do not assume file is stored on filesystem
+                attachment.check("read")
                 zip_file.writestr(
                     attachment._compute_zip_file_name(),
-                    attachment.read(["raw"])[0]["raw"],
+                    attachment.datas,
                 )
             zip_buffer.seek(0)
             zip_file.close()

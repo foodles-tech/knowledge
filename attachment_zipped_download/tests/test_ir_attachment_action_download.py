@@ -5,10 +5,10 @@ from odoo_test_helper import FakeModelLoader
 
 from odoo.tests import SavepointCase
 
-from .test_attachment_zipped_download import create_attachment
+from .test_attachment_zipped_download import TestAttachmentZippedDownloadBase
 
 
-class TestMixin(SavepointCase):
+class TestMixin(SavepointCase, TestAttachmentZippedDownloadBase):
     @classmethod
     def setUpClass(cls):
         super(TestMixin, cls).setUpClass()
@@ -25,21 +25,21 @@ class TestMixin(SavepointCase):
         cls.partner_2 = cls.env.ref("base.res_partner_2")
         cls.partner_3 = cls.env.ref("base.res_partner_3")
 
-        cls.partner_1_f1 = create_attachment(
+        cls.partner_1_f1 = cls._create_attachment(
             cls.env,
             cls.env.uid,
             "partner_1-f1.txt",
             model="res.partner",
             res_id=cls.partner_1.id,
         )
-        cls.partner_1_f2 = create_attachment(
+        cls.partner_1_f2 = cls._create_attachment(
             cls.env,
             cls.env.uid,
             "partner_1-f2.txt",
             model="res.partner",
             res_id=cls.partner_1.id,
         )
-        cls.partner_2_f1 = create_attachment(
+        cls.partner_2_f1 = cls._create_attachment(
             cls.env,
             cls.env.uid,
             "partner_2-f1.txt",

@@ -40,6 +40,6 @@ class IrAttachment(models.Model):
         return zip_buffer
 
     def _compute_zip_file_name(self):
-        """Give a change to easly change name of file inside zip"""
+        """Give a chance of easily changing the name of the file inside the ZIP."""
         self.ensure_one()
         return self.name
